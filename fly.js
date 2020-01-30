@@ -1,4 +1,6 @@
-class Fly extends LivingCreature{
+let LivingCreature = require('./LivingCreature')
+
+module.exports = class Fly extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index)
         this.energy = 30;
@@ -64,7 +66,7 @@ class Fly extends LivingCreature{
             this.death()
         }
 
-        var newCell = random([random(this.chooseCell(2)), random(this.chooseCell(3))])
+        var newCell = Math.floor(Math.random() * Math.floor(this.chooseCell(2))),
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
