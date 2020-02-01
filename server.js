@@ -13,11 +13,11 @@ server.listen(3000)
 
 matrix = [];
 
-var grassArr = [];
-var grassEaterArr = [];
-var predatorArr = [];
-var cavalierArr = [];
-var flyArr = [];
+grassArr = [];
+grassEaterArr = [];
+predatorArr = [];
+cavalierArr = [];
+flyArr = [];
 
 var m = 100;
 var n = 40;

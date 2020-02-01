@@ -41,7 +41,8 @@ module.exports = class Fly extends LivingCreature{
         return super.chooseCell(character);
     }
     move() {
-        var newCell = random([random(this.chooseCell(0)), random(this.chooseCell(1))])
+        var newCell =  Math.random() * ( Math.floor(Math.random() * this.chooseCell(1).length) -  Math.floor(Math.random() * this.chooseCell(0).length) +  Math.floor(Math.random() * this.chooseCell(2).length));
+
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -66,7 +67,7 @@ module.exports = class Fly extends LivingCreature{
             this.death()
         }
 
-        var newCell = Math.floor(Math.random() * Math.floor(this.chooseCell(2))),
+        var newCell =  Math.floor(Math.random() * this.chooseCell(2).length);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];

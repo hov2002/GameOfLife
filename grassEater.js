@@ -1,9 +1,9 @@
 let LivingCreature = require('./LivingCreature')
 
-module.exports = class GrassEater extends LivingCreature{
+module.exports = class GrassEater extends LivingCreature {
     constructor(x, y, index) {
-    super(x, y, index)
-    this.energy = 8;
+        super(x, y, index)
+        this.energy = 8;
     }
     getNewCoordinates() {
         this.directions = [
@@ -33,7 +33,7 @@ module.exports = class GrassEater extends LivingCreature{
 
     }
     mul() {
-        var newCell = Math.floor(Math.random() * Math.floor(this.chooseCell(0)));
+        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -43,7 +43,7 @@ module.exports = class GrassEater extends LivingCreature{
         }
     }
     move() {
-        var newCell = Math.floor(Math.random() * Math.floor(this.chooseCell(0)));
+        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
         this.energy--;
         if (newCell) {
             var newX = newCell[0];
@@ -58,7 +58,7 @@ module.exports = class GrassEater extends LivingCreature{
         }
     }
     eat() {
-        var grass = Math.floor(Math.random() * Math.floor(this.chooseCell(1)));
+        var grass = Math.floor(Math.random() * this.chooseCell(1).length);
         if (grass) {
             var newX = grass[0];
             var newY = grass[1];
@@ -77,16 +77,10 @@ module.exports = class GrassEater extends LivingCreature{
                 this.mul();
                 this.energy = 6;
             }
-        }
-        else {
-            this.move()
-        }
-        this.acted = true;
+
+            else {
+                this.move()
+            }
+            this.acted = true;
     }
-}
-
-
-
-
-
-
+})
