@@ -36,12 +36,28 @@ module.exports = class Fly extends LivingCreature{
             [this.x + 2, this.y + 2],
         ];
     }
+    
     chooseCell(character) {
-        this.getNewCoordinates();
-        return super.chooseCell(character);
+        this.getNewCoordinates()
+        var found = [];
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                if (matrix[y][x] == character) {
+                    found.push(this.directions[i]);
+                }
+            }
+        }
+        return found;
     }
+
+
     move() {
-        var newCell =  Math.random() * ( Math.floor(Math.random() * this.chooseCell(1).length) -  Math.floor(Math.random() * this.chooseCell(0).length) +  Math.floor(Math.random() * this.chooseCell(2).length));
+        var newCell1 =  this.chooseCell(0)
+        var newCell2 = this.chooseCell(1)
+        var newCell3 = newCell1.concat(newCell2)
+        var newCell = Math.floor(Math.random() * newCell3.length)
 
         if (newCell) {
             var newX = newCell[0];
@@ -50,8 +66,11 @@ module.exports = class Fly extends LivingCreature{
             matrix[this.y][this.x] = 0;
             this.y = newY;
             this.x = newX;
+        }else {
+            this.death()
         }
     }
+
     death() {
         matrix[this.y][this.x] = 0;
         for (var i in flyArr) {
@@ -67,7 +86,11 @@ module.exports = class Fly extends LivingCreature{
             this.death()
         }
 
-        var newCell =  Math.floor(Math.random() * this.chooseCell(2).length);
+        var newCell1 =  this.chooseCell(2)
+        var newCell2 = this.chooseCell(3)
+        var newCell3 = newCell1.concat(newCell2)
+        var newCell = Math.floor(Math.random() * newCell3.length)
+
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];

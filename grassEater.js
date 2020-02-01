@@ -7,7 +7,6 @@ module.exports = class GrassEater extends LivingCreature {
     }
     getNewCoordinates() {
         this.directions = [
-
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
             [this.x + 1, this.y - 1],
@@ -18,10 +17,7 @@ module.exports = class GrassEater extends LivingCreature {
             [this.x + 1, this.y + 1]
         ];
     }
-    chooseCell(character) {
-        this.getNewCoordinates();
-        return super.chooseCell(character);
-    }
+  
     death() {
         matrix[this.y][this.x] = 0;
         for (var i in grassEaterArr) {
@@ -33,7 +29,8 @@ module.exports = class GrassEater extends LivingCreature {
 
     }
     mul() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
+        var emptyCells = super.chooseCell(1);
+		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -43,13 +40,18 @@ module.exports = class GrassEater extends LivingCreature {
         }
     }
     move() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
+        // var newCell = Math.floor(Math.random() * super.chooseCell(0).length);
+
+
+        var emptyCells = super.chooseCell(1);
+		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         this.energy--;
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
+            matrix[newY][newX] = 2
+            matrix[newY][newX] = matrix[this.y][this.x];
             matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = this.index;
             this.y = newY;
             this.x = newX;
         }
@@ -58,14 +60,18 @@ module.exports = class GrassEater extends LivingCreature {
         }
     }
     eat() {
-        var grass = Math.floor(Math.random() * this.chooseCell(1).length);
+        //var grass = Math.floor(Math.random() * super.chooseCell(1).length);
+
+        var emptyCells = super.chooseCell(1);
+		var grass = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         if (grass) {
             var newX = grass[0];
             var newY = grass[1];
+            matrix[newY][newX] = 2;
             matrix[newY][newX] = matrix[this.y][this.x];
             matrix[this.y][this.x] = 0;
             for (var i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
+                if (newX === grassArr[i].x && newY === grassArr[i].y) {
                     grassArr.splice(i, 1);
                     break;
                 }
@@ -76,11 +82,10 @@ module.exports = class GrassEater extends LivingCreature {
             if (this.energy >= 15) {
                 this.mul();
                 this.energy = 6;
-            }
-
-            else {
+            } else {
                 this.move()
             }
             this.acted = true;
+        }
     }
-})
+}

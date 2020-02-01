@@ -56,7 +56,7 @@ while (numbersGrassEater > 0) {
         numbersGrassEater--;
     }
 }
-while (numbersPredator > 0) {
+/* while (numbersPredator > 0) {
     y = getRandomInt(n);
     x = getRandomInt(m);
     var rect = matrix[y][x]
@@ -82,7 +82,14 @@ while (numbersFly > 0) {
         matrix[y][x] = 5;
         numbersFly--;
     }
-}
+} */
+
+// matrix = [[0, 1, 0,0, 1, 0, 0],
+// [0, 1, 0,0, 1, 1, 0],
+// [0, 1, 0,0, 1, 1, 0],
+// [0, 1, 0,0, 1, 1, 0],
+// [0, 1, 0,0, 1, 1, 0],
+// ]
 
 io.sockets.emit("send matrix", matrix)
 
@@ -98,25 +105,34 @@ function createObject(matrix) {
         for (var x = 0; x < matrix[y].length; ++x) {
             var obj = matrix[y][x]
             if (obj == 1) {
+                obj = 1
                 var gr = new Grass(x, y);
                 grassArr.push(gr);
             }
             else if (obj == 2) {
+                obj = 2
+
                 var grEater = new GrassEater(x, y, 2);
                 grassEaterArr.push(grEater)
 
             }
             else if (obj == 3) {
+                obj = 3
+
                 var pred = new Predator(x, y, 3);
                 predatorArr.push(pred)
 
             }
             else if (obj == 4) {
+                obj = 4
+
                 var cav = new Cavalier(x, y, 4);
                 cavalierArr.push(cav)
 
             }
             else if (obj == 5) {
+                obj = 5
+
                 var fl = new Fly(x, y, 5);
                 flyArr.push(fl)
             }
@@ -158,7 +174,7 @@ function game() {
     io.sockets.emit("send matrix", matrix)
 }
 
-setInterval(game, 1000)
+setInterval(game, 100)
 
 io.on('connection', function(){
     createObject(matrix)

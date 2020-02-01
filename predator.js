@@ -61,13 +61,15 @@ module.exports = class Predator extends LivingCreature{
         }
     }
     move() {
-        var newCell =  Math.floor(Math.random() * this.chooseCell(0).length);
+        var emptyCells = super.chooseCell(0);
+		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+        // var newCell =  Math.floor(Math.random() * this.chooseCell(0).length);
         this.energy--;
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = this.index;
+            matrix[newY][newX] = matrix[this.y][this.x];
             this.y = newY;
             this.x = newX;
         }
@@ -76,7 +78,9 @@ module.exports = class Predator extends LivingCreature{
         }
     }
     eat() {
-        var grassit =  Math.floor(Math.random() * this.chooseCell(2).length);
+        var emptyCells = super.chooseCell(1);
+		var grassit = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+ //       var grassit =  Math.floor(Math.random() * this.chooseCell(2).length);
         if (grassit) {
             var newX = grassit[0];
             var newY = grassit[1];
