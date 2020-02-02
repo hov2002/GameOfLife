@@ -3,7 +3,7 @@ let LivingCreature = require('./LivingCreature')
 module.exports = class Fly extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index)
-        this.energy = 30;
+        this.energy = 50;
         this.multiply = 0
 
     }
@@ -38,35 +38,27 @@ module.exports = class Fly extends LivingCreature{
     }
     
     chooseCell(character) {
-        this.getNewCoordinates()
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        this.getNewCoordinates();
+        return super.chooseCell(character);
     }
-
-
     move() {
-        var newCell1 =  this.chooseCell(0)
-        var newCell2 = this.chooseCell(1)
-        var newCell3 = newCell1.concat(newCell2)
-        var newCell = Math.floor(Math.random() * newCell3.length)
-
+        
+        this.energy -= 2;
+        // var emptyCells1 = super.chooseCell(0);
+        // var emptyCells2 = super.chooseCell(1);
+        // var emptyCells = emptyCells1.concat(emptyCells2)
+        var emptyCells = super.chooseCell(0)
+		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
+            matrix[newY][newX] = 5;
             matrix[newY][newX] = matrix[this.y][this.x];
             matrix[this.y][this.x] = 0;
             this.y = newY;
             this.x = newX;
-        }else {
+        }
+        if(this.energy <= 0) {
             this.death()
         }
     }
@@ -82,21 +74,25 @@ module.exports = class Fly extends LivingCreature{
     }      
     snap() {
         this.energy--
-        if (this.energy == 0) {
+        if (this.energy <= 0) {
             this.death()
         }
 
-        var newCell1 =  this.chooseCell(2)
-        var newCell2 = this.chooseCell(3)
-        var newCell3 = newCell1.concat(newCell2)
-        var newCell = Math.floor(Math.random() * newCell3.length)
+        var emptyCells = this.chooseCell(4);
+		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
+            matrix[newY][newX] = 5;
             matrix[newY][newX] = matrix[this.y][this.x];
             matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = 0;
+            for (var i in cavalierArr) {
+                if (newX == cavalierArr[i].x && newY == cavalierArr[i].y) {
+                    cavalierArr.splice(i, 1);
+                    break;
+                }
+            }
         }
         else {
             this.move()

@@ -19,8 +19,11 @@ predatorArr = [];
 cavalierArr = [];
 flyArr = [];
 
-var m = 100;
-var n = 40;
+// var m = 100;
+// var n = 40;
+var m = 10;
+var n = 10;
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -32,11 +35,11 @@ for (var i = 0; i < n; i++) {
         matrix[i][j] = 0;
     }
 }
-var numbersGrass = 2000;
-var numbersGrassEater = 200;
-var numbersPredator = 150;
-var numbersCavalier = 16;
-var numbersFly = 300;
+var numbersGrass = 50;//2000
+var numbersGrassEater = 5;//200
+var numbersPredator = 0;//150
+var numbersCavalier = 1;
+var numbersFly = 1;//300
 
 while (numbersGrass > 0) {
     y = getRandomInt(n);
@@ -56,7 +59,7 @@ while (numbersGrassEater > 0) {
         numbersGrassEater--;
     }
 }
-/* while (numbersPredator > 0) {
+ while (numbersPredator > 0) {
     y = getRandomInt(n);
     x = getRandomInt(m);
     var rect = matrix[y][x]
@@ -65,6 +68,8 @@ while (numbersGrassEater > 0) {
         numbersPredator--;
     }
 }
+
+
 while (numbersCavalier > 0) {
     y = getRandomInt(n);
     x = getRandomInt(m);
@@ -82,7 +87,7 @@ while (numbersFly > 0) {
         matrix[y][x] = 5;
         numbersFly--;
     }
-} */
+} 
 
 // matrix = [[0, 1, 0,0, 1, 0, 0],
 // [0, 1, 0,0, 1, 1, 0],
@@ -94,11 +99,11 @@ while (numbersFly > 0) {
 io.sockets.emit("send matrix", matrix)
 
 
-Grass = require("./Grass")
-GrassEater = require("./GrassEater")
-Predator = require("./Predator")
-Cavalier = require("./Cavalier")
-Fly = require("./Fly")
+Grass = require("./modules/Grass")
+GrassEater = require("./modules/GrassEater")
+Predator = require("./modules/Predator")
+Cavalier = require("./modules/Cavalier")
+Fly = require("./modules/Fly")
 
 function createObject(matrix) {
     for (var y = 0; y < matrix.length; ++y) {
@@ -174,8 +179,31 @@ function game() {
     io.sockets.emit("send matrix", matrix)
 }
 
-setInterval(game, 100)
+setInterval(game, 1000)
 
 io.on('connection', function(){
     createObject(matrix)
 })
+
+
+function winter() {
+    grassArr = [];
+    grassEaterArr = []
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            matrix[y][x] = 0;
+        }
+    }
+    io.sockets.emit("winter", matrix);
+}
+
+function kill() {
+    grassArr = [];
+    grassEaterArr = []
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            matrix[y][x] = 0;
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}

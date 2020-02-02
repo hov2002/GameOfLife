@@ -4,45 +4,30 @@
 <head>
 	<title></title>
 	<meta charset="utf8">
-	<style>
-		canvas{
-			display: block;
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/styledrop.css">
+	<script src = "/socket.io/socket.io.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script> -->
+	<script src="p5.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 
-float: left;		}
-		#legend {
-			position: absolute;
-			width: 800px;
-			display: block;
-			margin-top: 800px;
-			margin-left: 400px;
-		}
 
-		.legend-color {
-			width: 50px;
-			height: 30px;
-		}
-
-		td {
-			border: 1px solid black;
-			font-size: 14px;
-			padding-left: 5px;
-		}
-	</style>
 </head>
 
 <body>
-	<!-- <script type="text/javascript" src="LivivngCreature.js"></script>
-	<script type="text/javascript" src="grass.js"></script>
-	<script type="text/javascript" src="grassEater.js"></script>
-	<script type="text/javascript" src="predator.js"></script>
-	<script type="text/javascript" src="cavalier.js"></script>
-	<script type="text/javascript" src=" fly.js"></script> -->
-
-	<script src = "socket.io/socket.io.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
-	<script src="p5.min.js"></script>
-	<script type="text/javascript" src="script.js"></script>
 	
+
+	<div class="dropdown">
+		<button class="dropbtn">Weather</button>
+		<div class="dropdown-content">
+			<button	 onclick="winter()">Winter</button	>
+			<button	 onclick="kill()">Spring</button	>
+			<button	 onclick="winter()">Summer</button	>
+			<button	 onclick="winter()">Autumn</button	>
+		</div>
+	  </div>
+
 	<!-- <table id="legend">
 		<tr>
 			<td class="legend-color">Գույն</td>

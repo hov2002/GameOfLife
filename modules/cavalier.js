@@ -14,7 +14,10 @@ module.exports = class Cavalier extends LivingCreature{
             [this.x + 1, this.y + 2]
         ];
     }
-    
+    chooseCell(character) {
+        this.getNewCoordinates();
+        return super.chooseCell(character);
+    }
     death() {
         matrix[this.y][this.x] = 0;
         for (var i in cavalierArr) {
@@ -25,7 +28,10 @@ module.exports = class Cavalier extends LivingCreature{
         }
     }
     mul() {
-        var newCell =  Math.floor(Math.random() * super.chooseCell(0).length);
+        var emptyCells = super.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+
+     //   var newCell =  Math.floor(Math.random() * super.chooseCell(0).length);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -35,19 +41,24 @@ module.exports = class Cavalier extends LivingCreature{
         }
     }
     move() {
-        var newCell =  Math.floor(Math.random() * super.chooseCell(0).length);
+        var emptyCells = this.chooseCell(0);
+		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+    //    var newCell =  Math.floor(Math.random() * super.chooseCell(0).length);
         this.energy--;
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
+            matrix[newY][newX] = 4
+            matrix[newY][newX] = matrix[this.y][this.x];
             matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = this.index;
             this.y = newY;
             this.x = newX;
         }
     }
     eat() {
-        var pred =  Math.floor(Math.random() * super.chooseCell(3).length);
+        var emptyCells = this.chooseCell(3);
+		var pred = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+ //       var pred =  Math.floor(Math.random() * super.chooseCell(3).length);
         if (predatorArr.length <= 0) {
             this.death()
         }
@@ -55,6 +66,7 @@ module.exports = class Cavalier extends LivingCreature{
             if (pred) {
                 var newX = pred[0];
                 var newY = pred[1];
+                matrix[newY][newX] = 4
                 matrix[newY][newX] = matrix[this.y][this.x];
                 matrix[this.y][this.x] = 0;
                 for (var i in predatorArr) {
@@ -76,6 +88,4 @@ module.exports = class Cavalier extends LivingCreature{
             }
         }
     }
-
-
 }

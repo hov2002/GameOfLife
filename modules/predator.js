@@ -51,25 +51,31 @@ module.exports = class Predator extends LivingCreature{
         }
     }
     mul() {
-        var newCell =  Math.floor(Math.random() * this.chooseCell(0).length);
+        
+        var emptyCells = this.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+
+
+        // var newCell =  Math.floor(Math.random() * this.chooseCell(0).length);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
-            var pred = new Predator(newX, newY, this.index);
+            var pred = new Predator(newX, newY, 3);
             predatorArr.push(pred)
             matrix[newY][newX] = this.index;
         }
     }
     move() {
-        var emptyCells = super.chooseCell(0);
+        var emptyCells = this.chooseCell(0);
 		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         // var newCell =  Math.floor(Math.random() * this.chooseCell(0).length);
         this.energy--;
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[this.y][this.x] = 0;
+            matrix[newY][newX] = 3
             matrix[newY][newX] = matrix[this.y][this.x];
+            matrix[this.y][this.x] = 0;
             this.y = newY;
             this.x = newX;
         }
@@ -78,12 +84,13 @@ module.exports = class Predator extends LivingCreature{
         }
     }
     eat() {
-        var emptyCells = super.chooseCell(1);
+        var emptyCells = this.chooseCell(2);
 		var grassit = emptyCells[Math.floor(Math.random() * emptyCells.length)]
  //       var grassit =  Math.floor(Math.random() * this.chooseCell(2).length);
         if (grassit) {
             var newX = grassit[0];
-            var newY = grassit[1];
+            var newY = grassit[1]
+            matrix[newY][newX] = 3;
             matrix[newY][newX] = matrix[this.y][this.x];
             matrix[this.y][this.x] = 0;
             for (var i in grassEaterArr) {
