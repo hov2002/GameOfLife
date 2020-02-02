@@ -57,11 +57,6 @@ function nkarel(matrix) {
 socket.on("send matrix", nkarel)
 
 
-
-function winter() {
-    socket.emit("winter")
-}
-
 function kill() {
     socket.emit("kill")
 }

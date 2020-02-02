@@ -6,11 +6,14 @@
 	<meta charset="utf8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/snowflake.css">
 	<link rel="stylesheet" href="styles/styledrop.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src = "/socket.io/socket.io.js"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script> -->
 	<script src="p5.min.js"></script>
 	<script type="text/javascript" src="script.js"></script>
+	
 
 
 </head>
@@ -21,10 +24,8 @@
 	<div class="dropdown">
 		<button class="dropbtn">Weather</button>
 		<div class="dropdown-content">
-			<button	 onclick="winter()">Winter</button	>
-			<button	 onclick="kill()">Spring</button	>
+			<button	 onclick="kill()">Winter</button	>
 			<button	 onclick="winter()">Summer</button	>
-			<button	 onclick="winter()">Autumn</button	>
 		</div>
 	  </div>
 
@@ -88,8 +89,9 @@
 		</tr>
 	</table> -->
 
-
-
+	<body><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Codystar">
+		<h1></h1>
+		<div id="snow"></div>
 </body>
 
 </html>
