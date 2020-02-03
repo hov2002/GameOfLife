@@ -188,7 +188,7 @@ setInterval(game, 1000)
 
 
 
-var kill = (function() {
+var Snowflake = (function() {
 
     var flakes;
     var flakesTotal = 250;
@@ -297,9 +297,21 @@ var kill = (function() {
 
 }());
 
+function kill() {
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            matrix[y][x] = 6;
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
 // io.on('connection', function (socket) {
-//     createObject(matrix);
-//     socket.on("kill", kill);
+//     socket.on("snow", Snowflake);
 // });
 
 
+
+io.on('connection', function (socket) {
+//    createObject();
+    socket.on("kill", kill);
+});

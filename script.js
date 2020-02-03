@@ -48,6 +48,10 @@ function nkarel(matrix) {
 				fill("#acacac");
 				rect(x * side, y * side, side, side);
 			}
+			else if (matrix[y][x] == 6) {
+					fill("#lightblue");
+					rect(x * side, y * side, side, side);
+			}
 
 		}
 	}
@@ -56,6 +60,10 @@ function nkarel(matrix) {
 
 socket.on("send matrix", nkarel)
 
+
+function snow() {
+    socket.emit("snow")
+}
 
 function kill() {
     socket.emit("kill")
