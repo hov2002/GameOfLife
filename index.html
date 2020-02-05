@@ -9,26 +9,27 @@
 	<link rel="stylesheet" href="styles/snowflake.css">
 	<link rel="stylesheet" href="styles/styledrop.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src = "/socket.io/socket.io.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script> -->
 	<script src="p5.min.js"></script>
 	<script type="text/javascript" src="script.js"></script>
-	
+
 
 
 </head>
 
 <body>
-	
+
 
 	<div class="dropdown">
 		<button class="dropbtn">Weather</button>
 		<div class="dropdown-content">
-			<button	 onclick="snow()">Winter</button	>
-			<button	 onclick="winter()">Summer</button	>
+			<button onclick="Winter()">Winter</button>
+			<button onclick="Spring()">Spring</button>
+			<button onclick="Summer()">Summer</button>
+			<button onclick="Autumn()">Autumn</button>
 		</div>
-	  </div>
-	  <button onclick="kill()">Kill them all</button>
+	</div>
 	<!-- <table id="legend">
 		<tr>
 			<td class="legend-color">Գույն</td>
@@ -89,9 +90,10 @@
 		</tr>
 	</table> -->
 
-	<body><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Codystar">
+	<body>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Codystar">
 		<h1></h1>
 		<div id="snow"></div>
-</body>
+	</body>
 
 </html>

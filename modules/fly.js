@@ -3,7 +3,6 @@ let LivingCreature = require('./LivingCreature')
 module.exports = class Fly extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index)
-        this.energy = 50;
         this.multiply = 0
 
     }
@@ -37,19 +36,16 @@ module.exports = class Fly extends LivingCreature{
         ];
     }
     
-    chooseCell(character) {
-        this.getNewCoordinates();
-        return super.chooseCell(character);
-    }
+    
     move() {
-        
-        this.energy -= 2;
         // var emptyCells1 = super.chooseCell(0);
         // var emptyCells2 = super.chooseCell(1);
         // var emptyCells = emptyCells1.concat(emptyCells2)
-        var emptyCells = super.chooseCell(0)
+        
+        var emptyCells = super.chooseCell(1)
 		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         if (newCell) {
+
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = 5;
@@ -58,25 +54,19 @@ module.exports = class Fly extends LivingCreature{
             this.y = newY;
             this.x = newX;
         }
-        if(this.energy <= 0) {
-            this.death()
-        }
+
     }
 
     death() {
-        matrix[this.y][this.x] = 0;
+        matrix[this.y][this.x] = 6;
         for (var i in flyArr) {
             if (this.x == flyArr[i].x && this.y == flyArr[i].y) {
                 flyArr.splice(i, 1);
                 break;
             }
         }
-    }      
+    }    
     snap() {
-        this.energy--
-        if (this.energy <= 0) {
-            this.death()
-        }
 
         var emptyCells = this.chooseCell(4);
 		var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
@@ -92,8 +82,10 @@ module.exports = class Fly extends LivingCreature{
                     cavalierArr.splice(i, 1);
                     break;
                 }
-            }
+            }    
+              this.death()
         }
+  
         else {
             this.move()
         }
