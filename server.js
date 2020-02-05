@@ -8,10 +8,9 @@ app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html')
 })
-
 server.listen(3000)
 
-
+weath = "winter";
 Grass = require("./modules/Grass")
 GrassEater = require("./modules/GrassEater")
 Predator = require("./modules/Predator")
@@ -24,16 +23,12 @@ predatorArr = [];
 cavalierArr = [];
 flyArr = [];
 
-// var m = 100;
-// var n = 40;
 var m = 10;
 var n = 10;
-
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
-
 for (var i = 0; i < n; i++) {
     matrix[i] = [];
     for (var j = 0; j < m; j++) {
@@ -74,7 +69,6 @@ while (numbersGrassEater > 0) {
     }
 }
 
-
 while (numbersCavalier > 0) {
     y = getRandomInt(n);
     x = getRandomInt(m);
@@ -93,11 +87,7 @@ while (numbersFly > 0) {
         numbersFly--;
     }
 } 
-
-
 io.sockets.emit("send matrix", matrix)
-
-
 
 function createObject() {
     for (var y = 0; y < matrix.length; ++y) {
@@ -110,28 +100,21 @@ function createObject() {
             }
             else if (obj == 2) {
                 obj = 2
-
                 var grEater = new GrassEater(x, y, 2);
                 grassEaterArr.push(grEater)
-
             }
             else if (obj == 3) {
                 obj = 3
-
                 var pred = new Predator(x, y, 3);
                 predatorArr.push(pred)
-
             }
             else if (obj == 4) {
                 obj = 4
-
                 var cav = new Cavalier(x, y, 4);
                 cavalierArr.push(cav)
-
             }
             else if (obj == 5) {
                 obj = 5
-
                 var fl = new Fly(x, y, 5);
                 flyArr.push(fl)
             }
@@ -162,16 +145,34 @@ function game() {
 setInterval(game, 1000)
 
 
+
+//functions
+
+
+
+
+
+function weather() {
+    if (weath == "winter") {
+        weath = "spring"
+    }
+    else if (weath == "spring") {
+        weath = "summer"
+    }
+    else if (weath == "summer") {
+        weath = "autumn"
+    }
+    else if (weath == "autumn") {
+        weath = "winter"
+    }
+    io.sockets.emit('weather', weath)
+}
+setInterval(weather, 5000);
+
 io.on('connection', function (socket) {
     createObject();
    // socket.on('kill', kill)
 });
-
-
-
-
-
-
 
 var statistics = {};
 setInterval(function() {
