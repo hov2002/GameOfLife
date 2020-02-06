@@ -1,7 +1,8 @@
 var socket = io();
-var side = 50;
-var m = 10;
-var n = 10;
+var side = 40;
+var m = 20;
+var n = 20;
+var weath
 
 function setup() {
 	createCanvas(m * side, n * side);
@@ -11,25 +12,25 @@ function setup() {
 	imgGrassSu = loadImage('images/grass/grassSummer.jpg');
 	imgGrassAu = loadImage('images/grass/grassAutumn.jpg');
 
-	imgGrassEaterWi = loadImage('images/lamb.png');
-	imgGrassEaterSp = loadImage('images/lamb.png');
-	imgGrassEaterSu = loadImage('images/lamb.png');
-	imgGrassEaterAu = loadImage('images/lamb.png');
+	imgGrassEaterWi = loadImage('images/lamb/lamb.png');
+	imgGrassEaterSp = loadImage('images/lamb/lamb.png');
+	imgGrassEaterSu = loadImage('images/lamb/lamb.png');
+	imgGrassEaterAu = loadImage('images/lamb/lamb.png');
 
-	imgPredatorWi = loadImage('images/walf.png');
-	imgPredatorSp = loadImage('images/walf.png');
-	imgPredatorSu = loadImage('images/walf.png');
-	imgPredatorAu = loadImage('images/walf.png');
+	imgPredatorWi = loadImage('images/walf/walf.png');
+	imgPredatorSp = loadImage('images/walf/walf.png');
+	imgPredatorSu = loadImage('images/walf/walf.png');
+	imgPredatorAu = loadImage('images/walf/walf.png');
 	
-	imgCavalierWi = loadImage('images/cava.png');
-	imgCavalierSp = loadImage('images/cava.png');
-	imgCavalierSu = loadImage('images/cava.png');
-	imgCavalierAu = loadImage('images/cava.png');
+	imgCavalierWi = loadImage('images/cava/cava.png');
+	imgCavalierSp = loadImage('images/cava/cava.png');
+	imgCavalierSu = loadImage('images/cava/cava.png');
+	imgCavalierAu = loadImage('images/cava/cava.png');
 	
-	imgflyWi = loadImage('images/bee.png');
-	imgflySp = loadImage('images/bee.png');
-	imgflySu = loadImage('images/bee.png');
-	imgflyAu = loadImage('images/bee.png');
+	imgflyWi = loadImage('images/bee/bee.png');
+	imgflySp = loadImage('images/bee/bee.png');
+	imgflySu = loadImage('images/bee/bee.png');
+	imgflyAu = loadImage('images/bee/bee.png');
 
 	gerez = loadImage('images/gerezman.png');
 }
@@ -101,3 +102,23 @@ function nkarel(matrix) {
 	}
 }
 socket.on("send matrix", nkarel)
+
+
+function kill() {
+    socket.emit("kill")
+}
+function addGrass() {
+    socket.emit("add grass")
+}
+function addGrassEater() {
+    socket.emit("add grassEater")
+}
+function addPredator() {
+    socket.emit("add predator")
+}
+function addCavalier(){
+    socket.emit("add cavalier")
+}
+function addFly(){
+    socket.emit("add fly")
+}
